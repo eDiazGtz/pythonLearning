@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>The Wizard's Library</title>
+</head>
+<body>
+    <h1 class="text-primary">Welcome to the Wizard's Bookstore</h1>
+    <hr>
+    <h2>Today: {{todaysHours.open}} - {{todaysHours.close}}</h2>
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <td>Day of the Week</td>
+                <td>Open</td>
+                <td>Close</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% comment %}
+                {% functionality %} to execute functionality
+            {% endcomment %}
+
+            {% for hour in hoursOfOperation %}
+                <tr>
+                    <td> {{hour.day}} </td>
+                    <td> {{hour.open}} </td>
+                    <td> {{hour.close}} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br/>
+    <h3>Our Python Books DON'T have snakes on them!!</h3>
+
+</body>
+</html>
