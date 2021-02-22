@@ -140,11 +140,11 @@ print(ultimateAnalysis(g))
 # Example: reverse_list([37,2,1,-9]) should return [-9,1,2,37]
 
 def reverseList(list):
-    revver = 0
+    placeholder = 0
     for i in range (int(len(list) / 2)):
-        revver = list[i]
+        placeholder = list[i]
         list[i] = list[len(list) - 1 - i]
-        list[len(list) - 1 - i] = revver
+        list[len(list) - 1 - i] = placeholder
     return list
 
 print(reverseList(g))

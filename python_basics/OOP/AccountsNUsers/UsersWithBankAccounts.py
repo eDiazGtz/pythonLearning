@@ -2,7 +2,7 @@ class BankAccount:
     def __init__(self, intRate = 0.01, bal = 0):
         self.interest = intRate
         self.balance = bal
-    
+
     def deposit(self, amount):
         if (amount <= 0):
             print("Must deposit positive amount. Make a withdrawal for reducing balance.")
@@ -38,6 +38,12 @@ class User:
         self.name = uName
         self.name = uEmail
         self.account = BankAccount(intRate=0.02)
+        self.accounts = []
+
+    # def addAccount(self, accountName):
+        #Need to create a way to create account with name
+        #Value should be a new INSTANCE of the BankAccount Class.
+        #Also need to update all other methods to include the name of WHICH account is being used. 
 
     def depositFromBank(self, amount):
         self.account.deposit(amount)
