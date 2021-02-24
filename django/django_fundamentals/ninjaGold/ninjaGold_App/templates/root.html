@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Money</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">   
+</head>
+<body>
+
+    <div class="wrapper">
+        <h1>WELCOME TO NINJA GOLD</h1>
+        <h2 class="gold">Your Gold:  <span>{{request.session.gold}}</span></h2>
+
+        <div class="building">
+            <form method="POST" action="/findgold">
+                {% csrf_token %}
+                <input type="hidden" value="farm" name="building">
+                <h3>Farm</h3>
+                <p>Finds 10-20 Gold</p>
+                <button>Find Gold</button>
+            </form>
+        </div>
+
+        <div class="building">
+                <form method="POST" action="/findgold">
+                    {% csrf_token %}
+                    <input type="hidden" value="cave" name="building">
+                    <h3>Cave</h3>
+                    <p>Finds 5-10 Gold</p>
+                    <button>Find Gold</button>
+                </form>
+            </div>
+            
+            <div class="building">
+                <form method="POST" action="/findgold">
+                    {% csrf_token %}
+                    <input type="hidden" value="house" name="building">
+                    <h3>House</h3>
+                    <p>Finds 2-5 Gold</p>
+                    <button>Find Gold</button>
+                </form>
+            </div>
+            
+            <div class="building">
+                <form method="POST" action="/findgold">
+                    {% csrf_token %}
+                    <input type="hidden" value="casino" name="building">
+                    <h3>Casino</h3>
+                    <p>Win/Lose 0-50 Gold</p>
+                    <button>Find Gold</button>
+                </form>
+            </div>
+
+        <div class="activities">
+            <h6>Activities: </h6>
+            {% for activity in request.session.activities %}
+                {% if activity %}
+                <p class="red">{{activity}}</p>
+                {% else %}
+                <p class="green">{{activity}}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
