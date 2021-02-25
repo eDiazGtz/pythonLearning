@@ -1,0 +1,51 @@
+body {
+	background-color: rgb(176, 209, 236);
+}
+.wrapper{
+	width: 1200px;
+	margin: auto;
+}
+h1 {
+	text-align: center;
+	color: rgb(230, 182, 78);
+	text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+}
+.gold {
+	display: inline-block;
+}
+.reset {
+	display: inline-block;
+	padding: 5px;
+	border: solid 2px rgb(0, 0, 0);
+	margin-left: 20px;
+	background-color: rgb(255, 0, 0);
+	color: white;
+	font-size: medium;
+	border-radius: 10px;
+	text-decoration: none;
+}
+.building {
+	display: inline-block;
+	background-color: rgb(5, 5, 136);
+	color: rgb(240, 248, 255);
+	width: 200px;
+	height: 200px;
+	margin: 0 auto;
+	margin-left: 50px;
+	border: solid 3px rgb(150, 255, 150);
+	padding: 10px;
+	vertical-align: top;
+	text-align: center;
+}
+.activities {
+	height: 200px;
+	border: solid 3px rgb(150, 255, 150);
+	overflow: auto;
+	background-color: rgb(5, 5, 136);
+}
+.green {
+	color: rgb(17, 179, 17);
+}
+.red {
+	color: rgb(255, 0, 0);
+}

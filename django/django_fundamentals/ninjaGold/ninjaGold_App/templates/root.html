@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ninja Money</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">   
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 
     <div class="wrapper">
         <h1>WELCOME TO NINJA GOLD</h1>
-        <h2 class="gold">Your Gold:  <span>{{request.session.gold}}</span></h2>
+        <div>
+            <h2 class="gold">Your Gold:  <span>{{request.session.gold}}</span></h2>
+            <a class="reset" href="/reset">RESET GAME</a>
+        </div>
 
         <div class="building">
             <form method="POST" action="/findgold">
@@ -54,10 +57,10 @@
                 </form>
             </div>
 
-        <div class="activities">
             <h6>Activities: </h6>
+        <div class="activities">
             {% for activity in request.session.activities %}
-                {% if activity %}
+                {% if 'lost' in activity %}
                 <p class="red">{{activity}}</p>
                 {% else %}
                 <p class="green">{{activity}}</p>
