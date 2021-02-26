@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C+R Users</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="d-flex justify-content-center text-info">All the Users</h1>
+
+    <table class="table table-info table-hover">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Age</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.firstName}} {{user.lastName}}</td>
+                <td>{{user.emailAddress}}</td>
+                <td>{{user.age}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h1 class="d-flex justify-content-center text-info">Add Yo Self to our List of Awesome!</h1>
+
+    <div class="form-group">
+        <form method="POST" action="/">
+            {% csrf_token %}
+            <label for="firstName">First Name: </label>
+            <input type="text" name="firstName" class="form-control">
+            
+            <label for="lastName">Last Name: </label>
+            <input type="text" name="lastName" class="form-control">
+
+            <label for="emailAddress">Email: </label>
+            <input type="text" name="emailAddress" class="form-control">
+
+            <label for="age">Age: </label>
+            <input type="text" name="age" class="form-control">
+
+            <input type="submit" value="Add Yo Self!" class="btn btn-primary mt-2">
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
