@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C+R Users</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h1 class="d-flex justify-content-center text-info">Add a Dojo</h1>
+
+            <div class="form-group">
+                <form method="POST" action="/dojo">
+                    {% csrf_token %}
+                    <input type="hidden" value="dojo" name="formInput">
+
+                    <label for="name">Name: </label>
+                    <input type="text" name="name" class="form-control">
+                    
+                    <label for="city">City: </label>
+                    <input type="text" name="city" class="form-control">
+
+                    <label for="state">State: </label>
+                    <input type="text" name="state" class="form-control">
+
+                    <input type="submit" value="Add" class="btn btn-primary mt-2">
+                </form>
+            </div>
+        </div>
+
+        <div class="col">
+            <h1 class="d-flex justify-content-center text-info">Add a Ninja</h1>
+
+            <div class="form-group">
+                <form method="POST" action="/dojo">
+                    {% csrf_token %}
+                    <input type="hidden" value="ninja" name="formInput">
+                    <label for="firstName">First Name: </label>
+                    <input type="text" name="firstName" class="form-control">
+                    
+                    <label for="lastName">Last Name: </label>
+                    <input type="text" name="lastName" class="form-control">
+
+                    <label for="dojoLocation">Dojo: </label>
+                    <select name="dojoLocation">
+                        {% for dojo in dojos %}
+                        <option value="{{dojo.id}}">{{dojo.name}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="submit" value="Add" class="btn btn-primary mt-2">
+                </form>
+            </div>  
+        </div>
+    </div>
+
+    <hr>
+
+    <h1 class="d-flex justify-content-center text-info">Our Shadow Network</h1>
+
+    <ul>
+        {% for dojo in dojos %}
+        <li>{{dojo.name}}
+            <ul>
+                {% for ninja in dojo.ninjas.all %}
+                <li>{{ninja.firstName}} {{ninja.lastName}}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+</body>
+</html>
