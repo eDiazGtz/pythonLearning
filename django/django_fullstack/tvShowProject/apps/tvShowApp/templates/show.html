@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{show.title}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        
+        <a href="{% url 'dashboard' %}">Go Back</a>
+
+        <h1 class="d-flex justify-content-center text-info">TV Show No. {{show.id}}</h1>
+
+        <ul>
+            <li>Title: {{show.title}}</li>
+            <li>Network: {{show.network}}</li>
+            <li>Release Date: {{show.releaseDate}}</li>
+            <li>Description: {{show.description}}</li>
+        </ul>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+        <h4>Last Updated: {{show.updated_at}}</h4>
+        <a href="/shows/{{show.id}}/edit" class="btn btn-primary">Edit</a> | 
+        
+        <form method="POST" action="/shows/{{show.id}}/destroy" class="d-inline">
+            {% csrf_token %}
+            <input type="hidden" name="deleteShow" value="{{show.id}}">
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+
+    </div>
+</body>
+</html>
