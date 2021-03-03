@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import TvShow
 from datetime import datetime
 
@@ -18,9 +19,16 @@ def new(request):
 def createShow(request):
     #NEEDS GET REDIRECT
     if request.method == 'POST':
+        errors = TvShow.objects.basicValidator(request.POST)
+        #if errors exist -- redirect to shows/new
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect("/shows/new")
         #add show to DB
         newShow = TvShow.objects.create(title=request.POST['title'], network=request.POST['network'], releaseDate=request.POST['releaseDate'], description=request.POST['description'])
         newShow.save()
+        messages.success(request, "New TV Show Added! You're awesome.")
         return redirect(f"/shows/{newShow.id}")
     return redirect("/")
 
@@ -48,6 +56,11 @@ def editShow(request, show_id):
 def updateShow(request, show_id):
         #NEEDS GET REDIRECT
     if request.method == 'POST':
+        #if errors exist -- redirect to shows/new
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect(f"/shows/{show_id}/edit")
         thisShow = TvShow.objects.get(id=show_id)
         thisShow.title = request.POST['title']
         thisShow.network = request.POST['network']
