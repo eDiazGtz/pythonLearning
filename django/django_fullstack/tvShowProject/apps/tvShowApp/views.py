@@ -56,6 +56,7 @@ def editShow(request, show_id):
 def updateShow(request, show_id):
         #NEEDS GET REDIRECT
     if request.method == 'POST':
+        errors = TvShow.objects.basic_validator(request.POST)
         #if errors exist -- redirect to shows/new
         if len(errors) > 0:
             for key, value in errors.items():
