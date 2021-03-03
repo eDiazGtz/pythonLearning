@@ -10,9 +10,9 @@
 <body>
     <div class="container">
         
-        <a href="{% url 'dashboard' %}">Go Back</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">Go Back</a>
 
-        <h1 class="d-flex justify-content-center text-info">TV Show No. {{show.id}}</h1>
+        <h1 class="d-flex justify-content-center text-success">TV Show No. {{show.id}}</h1>
 
         <ul>
             <li>Title: {{show.title}}</li>
@@ -27,12 +27,12 @@
         <br/>
 
         <h4>Last Updated: {{show.updated_at}}</h4>
-        <a href="/shows/{{show.id}}/edit" class="btn btn-primary">Edit</a> | 
+        <a href="/shows/{{show.id}}/edit" class="btn btn-outline-primary">Edit</a> | 
         
         <form method="POST" action="/shows/{{show.id}}/destroy" class="d-inline">
             {% csrf_token %}
             <input type="hidden" name="deleteShow" value="{{show.id}}">
-            <input type="submit" value="Delete" class="btn btn-danger">
+            <input type="submit" value="Delete" class="btn btn-outline-danger">
         </form>
 
     </div>

@@ -10,9 +10,9 @@
 <body>
     <div class="container">
 
-        <a href="{% url 'dashboard' %}">Go Back</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">Go Back</a>
 
-        <h1 class="d-flex justify-content-center text-info">Edit {{show.title}}</h1>
+        <h1 class="d-flex justify-content-center text-success">Edit {{show.title}}</h1>
         <form method="POST" action="{% url 'createShow' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -34,10 +34,10 @@
                 <textarea class="form-control" name="description" rows="3">{{show.description}}</textarea>
             </div>
             
-            <button type="submit" class="btn btn-info">Update</button>
+            <button type="submit" class="btn btn-outline-info">Update</button>
         </form>
 
-        <a href="/shows/{{show.id}}">Go to Show</a>
+        <a href="/shows/{{show.id}}" class="btn btn-outline-primary">Go to Show</a>
 
     </div>
 </body>

@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="d-flex justify-content-center text-info">Welcome to Semi-Restful TV Shows!</h1>
-        <table class="table table-dark table-hover">
-            <thead>
+        <h1 class="d-flex justify-content-center text-success">Welcome to Semi-Restful TV Shows!</h1>
+        <table class="table table-primary table-hover">
+            <thead class="bg-primary text-light">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Title</th>
@@ -28,13 +28,13 @@
                     <td>{{show.network}}</td>
                     <td>{{show.releaseDate}}</td>
                     <td>
-                        <a href="/shows/{{show.id}}" class="btn btn-primary d-inline">Show</a> | 
-                        <a href="/shows/{{show.id}}/edit" class="btn btn-primary d-inline">Edit</a> | 
+                        <a href="/shows/{{show.id}}" class="btn btn-outline-primary d-inline">Show</a> | 
+                        <a href="/shows/{{show.id}}/edit" class="btn btn-outline-primary d-inline">Edit</a> | 
                         
                         <form method="POST" action="/shows/{{show.id}}/destroy" class="d-inline">
                             {% csrf_token %}
                             <input type="hidden" name="deleteShow" value="{{show.id}}">
-                            <input type="submit" value="Delete" class="btn btn-danger">
+                            <input type="submit" value="Delete" class="btn btn-outline-danger">
                         </form>
 
                     </td>
@@ -43,7 +43,7 @@
             </tbody>
         </table>
 
-            <a href="{% url 'newShow' %}">Add a New Show</a>
+            <a href="{% url 'newShow' %}" class="btn btn-primary">Add a New Show</a>
 
     </div>
 </body>
