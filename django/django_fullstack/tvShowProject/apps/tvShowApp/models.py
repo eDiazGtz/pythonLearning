@@ -9,9 +9,9 @@ class TvShowManager(models.Manager):
         if len(postData['network']) < 1:
             errors["network"] = "Network should be at least 1 character"
         if len(postData['description']) < 10:
-            errors["description"] = "Network should be at least 10 characters"
+            errors["description"] = "Description should be at least 10 characters"
         elif len(postData['description']) > 255:
-            errors["description"] = "Network max 255 characters"
+            errors["description"] = "Description max 255 characters"
         return errors
 
 class TvShow(models.Model):

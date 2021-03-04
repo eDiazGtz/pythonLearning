@@ -12,6 +12,13 @@
         
         <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">Go Back</a>
 
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <h1 class="d-flex justify-content-center text-success">Add a New Show</h1>
         <form method="POST" action="{% url 'createShow' %}">
             {% csrf_token %}
