@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semi-Restful TV Shows</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="d-flex justify-content-center text-success">Welcome to Semi-Restful TV Shows!</h1>
+        
+        <div class="overflow">
+            <table class="table table-primary table-hover">
+                <thead class="bg-primary text-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Network</th>
+                        <th scope="col">Release Date</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for show in shows %}
+                    <tr>
+                        <td>{{show.id}}</td>
+                        <td>{{show.title}}</td>
+                        <td>{{show.network}}</td>
+                        <td>{{show.releaseDate}}</td>
+                        <td>
+                            <a href="/shows/{{show.id}}" class="btn btn-outline-primary d-inline">Show</a> | 
+                            <a href="/shows/{{show.id}}/edit" class="btn btn-outline-primary d-inline">Edit</a> | 
+                            
+                            <form method="POST" action="/shows/{{show.id}}/destroy" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="deleteShow" value="{{show.id}}">
+                                <input type="submit" value="Delete" class="btn btn-outline-danger">
+                            </form>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+            <a href="{% url 'newShow' %}" class="btn btn-primary">Add a New Show</a>
+
+    </div>
+</body>
+</html>
