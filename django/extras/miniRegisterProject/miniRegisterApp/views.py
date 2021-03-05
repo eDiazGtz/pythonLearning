@@ -1,27 +1,48 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from django.contrib import messages
+from .forms import RegistrationForm, RawRegistrationForm
+from .models import User
+import bcrypt
 
 # Create your views here.
 def landing(request):
-    regform = RegisterForm()
+    regForm = RawRegistrationForm()
     context = {
-        "regForm":regform
+        "regForm":regForm
     }
-    return render(request, "landing.html", context)
+    return render(request, "logReg.html", context)
 
-# Inside your app's views.py file
-# This is the method that is running in response to that form submission
+
 def register(request):
-    # Confirm that the HTTP verb was a POST
-    if request.method == "POST":
-        # Bind the POST data to an instance of our RegisterForm
-        bound_form = RegisterForm(request.POST)
-        # Now test that bound_form using built-in methods!
-        # *************************
-        print(bound_form.is_valid()) # True or False, based on the validations that were set!
-        print(bound_form.errors) # Any errors in this form as a dictionary
-        # *************************
+    if(request.method == "POST"):
+        regForm = RawRegistrationForm(request.POST) #back-end re-validating in case front-end fails
+        errors = User.objects.createValidator(request.POST)
+        if(len(errors) > 0):
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/')
+        if regForm.is_valid(): #Uses django built-in validations
+            hashpw = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
+            newUser = User.objects.create(name=request.POST['name'],email=request.POST['email'],password=hashpw)
+            request.session['userId'] = newUser.id
+            return redirect('/dashboard')
+    return redirect('/')
+
+
+def login(request):
+    if(request.method == "POST"):
+        user = User.objects.filter(email=request.POST['email'])
+        if(len(user) > 0):
+            user = user[0]
+            if bcrypt.checkpw(request.POST['password'].encode(), user.password.encode()):
+                request.session['userId'] = user.id
+                return redirect('/dashboard')
+    messages.error(request, "Invalid Login Credentials.")
     return redirect('/')
 
 def dashboard(request):
     return render(request, "dashboard.html")
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')
