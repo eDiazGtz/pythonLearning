@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a student to all bootcamp courses</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+
+    <h2 class="d-flex justify-content-center text-info"> Add a new course!</h2>
+    
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="form-group">
+        <form method="POST" action="/add">
+            {% csrf_token %}
+          
+            <label for="name">Name: </label>
+            <input type="text" name="name" class="form-control" placeholder="Course's Name">
+ 
+            <label for="description">Description: </label>
+            <textarea name="description" class="form-control" placeholder="Add a Description!"></textarea>
+
+            <input type="submit" value="Add" class="btn btn-primary mt-2">
+        </form>
+    </div>
+
+    <h1 class="d-flex justify-content-center text-info">Courses</h1>
+    <table class="table table-info table-hover">
+        <thead>
+            <tr>
+                <td>Course Name</td>
+                <td>Description</td>
+                <td>Date Added</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{course.id}}</td>
+                <td>{{course.name}} {{user.lastName}}</td>
+                <td>{{course.created_at}}</td>
+                <td>
+                    <form method="POST" action="{% url 'deletePage' %}" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{course.id}}">
+                        <input type="submit" value="Remove" class="btn btn-outline-danger">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
