@@ -48,6 +48,8 @@ def findgold(request):
         userGold += thisTurnGold
         request.session['gold'] = userGold
         print(myString)
+        for val in range(len(activities), -1, -1):
+            
         activities.insert(0, myString)
         request.session['activities'] = activities
 

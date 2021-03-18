@@ -14,19 +14,20 @@ class User:
         print(self.accountBalance)
         return self
     def transferMoney(self, otherUser, amount):
-        self.makeWithdrawal(amount)
         otherUser.makeDeposit(amount)
+        self.makeWithdrawal(amount)
         return self
 
 orion = User('Orion', 'oAngelcrest@gmail.com')
 silver = User('Silver', 'sRevlis@gmail.com')
 luna = User('Luna', 'lStarfall@gmail.com')
 
-orion.makeDeposit(50).orion.makeDeposit(150).orion.makeDeposit(500).orion.makeWithdrawal(25).orion.displayUserBalance()
+orion.makeDeposit(50).makeDeposit(150).makeDeposit(500).makeWithdrawal(25).displayUserBalance()
 
-silver.makeDeposit(500).silver.makeDeposit(500).silver.makeWithdrawal(1000).silver.displayUserBalance()
+silver.makeDeposit(500).makeDeposit(500).makeWithdrawal(1000).displayUserBalance()
 
-luna.makeDeposit(2000).luna.makeDeposit(2000).luna.makeDeposit(2000).luna.makeWithdrawal(100).luna.displayUserBalance()
+luna.makeDeposit(2000).makeDeposit(2000).makeDeposit(2000).makeWithdrawal(100).displayUserBalance()
 
-orion.transferMoney(luna, 75).orion.displayUserBalance().luna.displayUserBalance()
+orion.transferMoney(luna, 75).displayUserBalance()
+luna.displayUserBalance()
 
