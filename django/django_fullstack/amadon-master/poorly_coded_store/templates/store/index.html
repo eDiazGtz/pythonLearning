@@ -18,6 +18,7 @@
             </tr>
         </thead>
         <tbody>
+
             {% for product in all_products %}
             <tr>
                 <form action="/checkout" method="post">
@@ -25,14 +26,26 @@
                     <td>{{product.description}}</td>
                     <td><input type="hidden" name="productId" value="{{product.id}}">{{product.price}}</td>
                     <td><select name="quantity">
-                        <option value="1">1</option>              
-                        <option value="2">2</option>              
-                        <option value="3">3</option>              
+                        <option value="1">1</option>           
+                        <option value="2">2</option>           
+                        <option value="3">3</option>           
+                        <option value="4">4</option>           
                     </select></td>
                     <td><input type="submit" value="Buy!"></td>
                 </form>
+
             </tr>
             {% endfor %}
+
+            <form action="/new" method="POST">
+                {% csrf_token %}
+                <label for="description">Description</label>
+                <input type="text" name="description">
+                <label for="price">Price</label>
+                <input type="text" name="price">
+                <input type="submit" value="Create Product">
+            </form>
+
         </tbody>
     </table>
 </body>
