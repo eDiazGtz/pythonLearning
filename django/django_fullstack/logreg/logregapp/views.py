@@ -17,7 +17,7 @@ def register(request):
             return redirect('/')
         else:
             hashpw = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
-            newUser = User.objects.create(name=request.POST['name'],email=request.POST['email'],password=hashpw)
+            newUser = User.objects.create(firstName=request.POST['firstName'],lastName=request.POST['lastName'],email=request.POST['email'],password=hashpw)
             request.session['userId'] = newUser.id
             return redirect('/dashboard')
     return redirect('/')

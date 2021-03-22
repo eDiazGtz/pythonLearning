@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container bg-light mt-2 mb-2">
+
+        <div class="bg-light d-flex justify-content-between align-items-center">
+            <h5 class="text-primary">CodingDojo Wall</h4>
+            <h6 class="text-success"><span class="text-primary">Welcome</span> {{user.firstName}} {{user.lastName}}</h6>
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+        </div>
+ 
+        <!-- PAGE ERRORS HERE -->
+        {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+        {% endif %}
+    
+        <!-- MAKE A POST-->
+        <form action="/newPost" method="POST" class="form-group d-flex flex-column">
+            {% csrf_token %}
+            <h4>Tell us about your day...</h4>
+            <textarea name="content" class="form-control"></textarea>
+            <input type="hidden" value="{{user.id}}" name="poster">
+            <input type="submit" value="Post" class="ml-auto btn btn-primary mt-2 p-1 pl-4 pr-4">
+        </form>
+
+        <!-- SHOW ALL POSTS  -- MOST RECENT SHOULD BE ON TOP (A LA NINJA GOLD) -->
+        {% for post in allPosts %}
+            <p><span class="font-weight-bold text-success">{{post.poster.firstName}} {{post.poster.lastName}}</span> - {{post.created_at}}</p>
+            <p class="ml-2 d-inline">{{post.content}}</p>
+
+            {% if user.id == post.poster.id %}
+                <form action="/destroyPost/{{post.id}}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="postId" value="{{post.id}}">
+                    <input type="submit" value="Delete" class="btn btn-outline-danger pt-0 pb-0">
+                </form>
+            {% endif %}
+
+            <!-- SHOW ALL COMMENTS FOR SPECIFIC COMMENT-- OLDEST ON TOP (.APPEND() IS OKAY) -->
+            {% for comment in post.comments.all %}
+            <p class="ml-4"><span class="font-weight-bold text-primary">{{comment.commenter.firstName}} {{comment.commenter.lastName}}</span> - {{comment.created_at}}</p>
+            <p class="ml-5 d-inline">{{comment.content}}</p>
+                {% if user.id == comment.commenter.id %}
+                <form action="/destroyComment/{{post.id}}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="postId" value="{{post.id}}">
+                    <input type="submit" value="Delete" class="btn btn-outline-danger pt-0 pb-0">
+                </form>
+                {% endif %}
+            {% endfor %}
+
+            <!-- MAKE A COMMENT -->
+            <form action="/newComment" method="POST" class="form-group d-flex flex-column">
+                {% csrf_token %}
+                <h4>Comment:</h4>
+                <textarea name="content" class="form-control"></textarea>
+                <input type="hidden" value="{{user.id}}" name="commenter">
+                <input type="hidden" value="{{post.id}}" name="postIBelongTo">
+                <input type="submit" value="Comment" class="ml-auto btn btn-success mt-2 p-1 pl-4 pr-4">
+            </form>
+
+        {% endfor %}
+
+    </div>
+</body>
+
+</html>
