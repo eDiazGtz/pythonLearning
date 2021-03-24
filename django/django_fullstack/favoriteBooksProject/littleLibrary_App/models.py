@@ -12,7 +12,7 @@ class UserManager(models.Manager):
 
         if len(postData['lastName']) < 2:
             errors["lastName"] = "Last Name must be longer than 1 character."
-        
+                
         uniqueEmail = User.objects.filter(email=postData['email'])
         if len(uniqueEmail) >= 1:
             errors['duplicateEmail'] = "Email Taken. Use another Email."
@@ -29,6 +29,17 @@ class UserManager(models.Manager):
 
         return errors
 
+class BookManager(models.Manager):
+    def createValidator(self, postData):
+        errors = {}
+        if len(postData['title']) < 1:
+            errors["title"] = "Title is Required."
+
+        if len(postData['description']) < 5:
+            errors["description"] = "Description must be at least 5 characters."
+        
+        return errors
+
 class User(models.Model):
     firstName = models.CharField(max_length=17)
     lastName = models.CharField(max_length=17)
@@ -37,4 +48,12 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
-, on_delete = models.CASCADE
+
+class Book(models.Model):
+    title = models.CharField(max_length=17)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = BookManager()
+    uploadedBy = models.ForeignKey(User, related_name="books_uploaded", on_delete = models.CASCADE)
+    usersWhoFavorite = models.ManyToManyField(User, related_name="favoritedBooks")

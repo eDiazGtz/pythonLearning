@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container bg-light p-3 mt-2 mb-2 border border-success">
+        
+        <div class="p-1 mb-3 bg-light d-flex justify-content-between border border-left-0 border-top-0 border-right-0 border-primary shadow">
+            <h4 class="text-success">Welcome {{user.firstName}}!</h4>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary ml-auto mr-1">Home</a>
+            <a href="{{user.id}}" class="btn btn-outline-primary mr-1">My Books</a>
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger shadow">Logout</a>
+        </div>
+        
+        <div class="row">
+
+            <div class="col">
+
+                <!-- PAGE ERRORS HERE -->
+                {% if messages %}
+                    <ul class="messages">    
+                        {% for message in messages %}    
+                            <li>{{ message }}</li>    
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- CREATE A BOOK -->
+                <form action="/newBook" method="POST" class="form-group d-flex flex-column">
+                    {% csrf_token %}
+                    <h5 class="text-secondary">Add a favorite Book</h5>
+                    <label for="title">Title: </label>
+                    <input type="text" placeholder="Book Title" name="title" required>
+                    <label for="description">Description: </label>
+                    <textarea name="description" placeholder="Describe your Favorite Book" class="form-control" required></textarea>
+                    <input type="hidden" value="{{user.id}}" name="uploadedBy">
+                    <input type="submit" value="Add" class="ml-auto btn btn-success mt-2 p-1 pl-4 pr-4 shadow">
+                </form>
+            </div>
+
+            <div class="col">
+                <!-- SHOW ALL BOOKS -->
+                <h5 class="text-secondary">All Books</h5>
+                {% for book in allBooks %}
+                    <div class="border border-primary p-1 mt-2">
+                        <a href="{{book.id}}/show">{{book.title}}</a>
+                        <p>(Added by <span class="font-weight-bold text-success">{{book.uploadedBy.firstName}} {{book.uploadedBy.lastName}}</span>)</p>
+                        {% if user.id == book.uploadedBy.id %}
+                            <p class="font-italic">This is one of your favorite Books</p>
+                        {% elif user in book.usersWhoFavorite.all %}
+                            <a href="/{{book.id}}/favorite">Un-Favorite</a>
+                        {% else %}
+                            <a href="/{{book.id}}/favorite">Add to Favorites</a>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>    
+        
+    </div>
+</body>
+</html>

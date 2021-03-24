@@ -61,5 +61,6 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     # ONE USER MANY COMMENTS
     commenter = models.ForeignKey(User, related_name="comments", on_delete = models.CASCADE)
+    # ONE POST MANY COMMENTS
     postIBelongTo = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
     objects = CommentManager()

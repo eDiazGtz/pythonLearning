@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container bg-light p-3 mt-2 mb-2 border border-success">
+        
+        <div class="p-1 mb-3 bg-light d-flex justify-content-between border border-left-0 border-top-0 border-right-0 border-primary shadow">
+            <h4 class="text-success">Welcome {{user.firstName}}!</h4>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-primary ml-auto mr-1">Home</a>
+            <a href="{{user.id}}" class="btn btn-primary mr-1">My Books</a>
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+        </div>
+        
+        <!-- SHOW ALL BOOKS -->
+        <h5 class="text-secondary">My Favorite Books</h5>
+        {% for book in myBooks.all %}
+            <div class="border border-info p-1 mt-2">
+                <a href="{{book.id}}/show">{{book.title}}</a>
+                <p class="text-info">{{book.description}}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
