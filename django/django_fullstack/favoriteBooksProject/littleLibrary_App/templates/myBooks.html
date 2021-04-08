@@ -13,7 +13,7 @@
         <div class="p-1 mb-3 bg-light d-flex justify-content-between border border-left-0 border-top-0 border-right-0 border-primary shadow">
             <h4 class="text-success">Welcome {{user.firstName}}!</h4>
             <a href="{% url 'dashboard' %}" class="btn btn-outline-primary ml-auto mr-1">Home</a>
-            <a href="{{user.id}}" class="btn btn-primary mr-1">My Books</a>
+            <a href="/{{user.id}}" class="btn btn-primary mr-1">My Books</a>
             <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
         </div>
         

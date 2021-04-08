@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books & Authors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <h1>{{thisBook.title}}</h1>
+    <p>ID: {{thisBook.id}}</p>
+    <p>Description: {{thisBook.description}}</p>
+    {% for myAuthor in thisBook.myAuthors.all %}
+    <p>Authors: {{ myAuthor.firstName }} {{ myAuthor.lastName }}</p>
+    {% endfor %}
+
+    <form action="{% url 'addAuthor' %}" method="POST" class="form-group">
+        {% csrf_token %}
+        <input type="hidden" value="{{thisBook.id}}" name="bookId">
+        
+        
+        
+        <select name="authorId">
+            {% for author in allAuthors %}
+                {% if author not in thisBook.myAuthors.all  %}
+                    <option value="{{author.id}}">{{ author.firstName }} {{ author.lastName }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        
+        
+        
+        <input type="submit" value="Add Author" class="btn btn-primary">
+    </form>
+
+</body>
+</html>

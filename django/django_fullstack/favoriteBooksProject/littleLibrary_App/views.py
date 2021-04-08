@@ -113,9 +113,11 @@ def favOrUnfavBook(request, bookId):
     thisBook = Book.objects.get(id=bookId)
     user = User.objects.get(id=request.session['userId'])
     if user in thisBook.usersWhoFavorite.all():
-        user.favoritedBooks.remove(thisBook)
+        thisBook.usersWhoFavorite.remove(thisBook)
     else:
-        thisBook.usersWhoFavorite.add(user)
+        thisBook.usersWhoFavorite.remove(thisBook)
+    
+    
     return redirect(f'/{bookId}/show')
 
 def myBooks(request, userId):

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books & Authors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+<div class="row">
+    <div class="col">
+    <form action="{% url 'createAuthor' %}" method="POST" class="form-group">
+        {% csrf_token %}
+        <label for="firstName">First Name: </label>
+        <input type="text" class="form-control" name="firstName" placeholder="First Name">
+        <label for="lastName">Last Name: </label>
+        <input type="text" class="form-control" name="lastName" placeholder="Last Name">
+        <label for="notes">Notes: </label>
+        <textarea name="notes" class="form-control" row="3" placeholder="Describe the Author!"></textarea>
+        <input type="submit" value="Add" class="mt-3 btn btn-success">
+    </form>
+    </div>
+    <div class="col">
+        
+        <table class="table table-info table-hover">
+            
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                {% for author in authors %}
+                    <tr>
+                        <td>{{author.id}}</td>
+                        <td>{{author.firstName}} {{author.lastName}}</td>
+                        <td><a href="{% url 'showBook' bookId=author.id %}">VIEW</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>
