@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def landing(request):
+def landing(request): #noooo
     #added context to pass Registration Form and later Login Form
     context = {
         'reg_form':RegistrationForm,
