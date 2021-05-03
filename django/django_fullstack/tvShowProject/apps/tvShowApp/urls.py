@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import landing, new, createShow, showShow, editShow, updateShow, deleteShow
+from .views import landing, new, createShow, showShow, editShow, updateShow, deleteShow, update
 
 urlpatterns = [
     path('', landing, name="dashboard"), #/shows
@@ -9,5 +9,6 @@ urlpatterns = [
     path('<int:show_id>/edit', editShow, name="editShow"), #shows/{id}/edit
     path('<int:show_id>/update', updateShow, name="updateShow"), #shows/{id}/update
     path('<int:show_id>/destroy', deleteShow, name="deleteShow"), #shows/{id}/destroy
+    path('/show/editShow/<int:show_id>', update), #shows/{id}/edit
 ]
 

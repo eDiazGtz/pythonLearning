@@ -16,6 +16,6 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('random/', include('apps.randomWordGeneratorApp.urls')),
     path('', include('apps.firstApp.urls')),
+    path('random/', include('apps.randomWordGeneratorApp.urls')),
 ]

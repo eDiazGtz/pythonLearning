@@ -21,6 +21,7 @@
             {% endfor %}
         </ul>
         {% endif %}
+        
         <form method="POST" action="/shows/{{show.id}}/update">
             {% csrf_token %}
             <div class="form-group">

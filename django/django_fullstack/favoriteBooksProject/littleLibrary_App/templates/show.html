@@ -70,7 +70,13 @@
                         {% if book.uploadedBy.id == favUser.id %}
                             <li class="text-success">{{book.uploadedBy.firstName}} {{book.uploadedBy.lastName}} <span class="font-italic text-dark">(Book Uploader)</span></li>
                         {% else %}
-                            <li class="text-success">{{favUser.firstName}} {{favUser.lastName}}
+                            
+                        
+                        <li class="text-success">{{favUser.firstName}} {{favUser.lastName}}
+                       
+                       
+                       
+                       
                             {% if user.id == favUser.id %}
                                 <a href="/{{book.id}}/favorite">Un-Favorite</a>
                             {% endif %}

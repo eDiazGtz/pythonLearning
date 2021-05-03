@@ -27,10 +27,27 @@ def createShow(request):
             return redirect("/shows/new")
         #add show to DB
         newShow = TvShow.objects.create(title=request.POST['title'], network=request.POST['network'], releaseDate=request.POST['releaseDate'], description=request.POST['description'])
-        newShow.save()
         messages.success(request, "New TV Show Added! You're awesome.")
         return redirect(f"/shows/{newShow.id}")
     return redirect("/")
+
+
+def update(request, show_id):
+    if request.method == 'POST':
+
+        errors = TvShow.objects.basicValidator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect("/shows/new")
+
+        show_to_update = TvShow.objects.get(id=show_id)
+        show_to_update.title = request.POST['title']
+        show_to_update.network = request.POST['network']
+        show_to_update.releaseDate = request.POST['releaseDate']
+        show_to_update.save()
+    return redirect(f"/{show_id}")
+
 
 # showShow
 def showShow(request, show_id):
