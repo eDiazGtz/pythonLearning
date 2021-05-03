@@ -110,12 +110,14 @@ def favOrUnfavBook(request, bookId):
     if('userId' not in request.session):
         messages.error(request, "Oops! Login Required to be here! Please log in or Register.")
         return redirect('/')
+    
+    
     thisBook = Book.objects.get(id=bookId)
     user = User.objects.get(id=request.session['userId'])
-    if user in thisBook.usersWhoFavorite.all():
-        thisBook.usersWhoFavorite.remove(thisBook)
-    else:
-        thisBook.usersWhoFavorite.remove(thisBook)
+    # if user in thisBook.usersWhoFavorite.all():
+    #     thisBook.usersWhoFavorite.remove(thisBook)
+    # else:
+        thisBook.usersWhoFavorite.add(user)
     
     
     return redirect(f'/{bookId}/show')

@@ -1,0 +1,9 @@
+Ninja Gold
+    -Game where a Ninja Goes to Locations and Gains Money
+    -Basic Build
+        -- 4 Locations
+        -- Gains Different amounts of Gold at each location
+        -- Need to keep track of Gold and (Activities of Ninja)
+    
+    -Hackathon Ninja Gold Features Suggestions
+        #We will come up with these as we go!

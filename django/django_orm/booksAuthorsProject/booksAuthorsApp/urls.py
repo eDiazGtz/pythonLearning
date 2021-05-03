@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import index, newAuthor, showBook, showAuthor, createBook, createAuthor, addAuthor, addBook
+from . import views
 
 urlpatterns = [
     path('', index, name="index"),
@@ -10,4 +11,9 @@ urlpatterns = [
     path('createAuthor', createAuthor, name="createAuthor"),
     path('books/<int:bookId>', showBook, name="showBook"),
     path('authors/<int:authorId>', showAuthor, name="showAuthor"),
+]
+
+urlpatterns = [
+    path('', views.index),
+    path('', views.dashboard),
 ]
