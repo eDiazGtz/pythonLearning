@@ -10,11 +10,16 @@ def landing(request):
 
 def register(request):
     if(request.method == "POST"):
+        
+        
         errors = User.objects.createValidator(request.POST)
+        
         if(len(errors) > 0):
             for key, value in errors.items():
                 messages.error(request, value)
             return redirect('/')
+        
+        
         else:
             hashpw = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
             newUser = User.objects.create(firstName=request.POST['firstName'],lastName=request.POST['lastName'],email=request.POST['email'],password=hashpw)
@@ -114,9 +119,9 @@ def favOrUnfavBook(request, bookId):
     
     thisBook = Book.objects.get(id=bookId)
     user = User.objects.get(id=request.session['userId'])
-    # if user in thisBook.usersWhoFavorite.all():
-    #     thisBook.usersWhoFavorite.remove(thisBook)
-    # else:
+    if user in thisBook.usersWhoFavorite.all():
+        thisBook.usersWhoFavorite.remove(user)
+    else:
         thisBook.usersWhoFavorite.add(user)
     
     

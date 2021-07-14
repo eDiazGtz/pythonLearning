@@ -1,20 +1,23 @@
 from django import forms
-from .models import User
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
-class RegistrationForm(forms.ModelForm):
-    firstName = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"First Name"})) #placing field here will override the other field below.
-    lastName = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Last Name"}))
-    email = forms.EmailField(widget=forms.TextInput(attrs={"placeholder":"email@domain.com"}))
-    password = forms.CharField(max_length=100, widget=forms.PasswordInput)
+
+class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
         fields = [
-            'firstName', 
-            'lastName', 
+            'first_name', 
+            'last_name', 
             'email', 
-            'password'
             ]
+
+
+
+
+
+
     def clean_firstName(self, *args, **kwargs): #django will clean the form upon save and django will add this validation in back-end
         firstName = self.cleaned_data.get("firstName")
         if "Hero " not in firstName:

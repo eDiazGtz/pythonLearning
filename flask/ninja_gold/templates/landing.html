@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orion's Quest</title>
+</head>
+<body>
+    <h1>ORION'S QUEST</h1>
+    
+    <p>For plot reasons you owe a lot of Gold to a lot of people. 
+        Explore the Realm and Collect Gold! Try to reach 1000 Gold!</p>
+        <br>
+    <h4>GOLD: {{session['gold']}}</h4>
+        <br>
+
+    <a href="/reset_gold">Reset Gold (Only)</a>
+    <br>
+    <hr>
+    
+    <form action="/gold" method="POST">
+        <label for="location">Farm (Gain 3-5 Gold)</label>
+        <input type="hidden" name="location" value="farm">
+        
+        <input type="submit" value="Explore!">
+    </form>
+    <hr>
+    
+    <form action="/gold" method="POST">
+        <label for="location">Cave (Gain 10-16 Gold)</label>
+        <input type="hidden" name="location" value="cave">
+        
+        <input type="submit" value="Explore!">
+    </form>
+    <hr>
+    
+    <form action="/gold" method="POST">
+        <label for="location">Keep (Gain 20-40 Gold)</label>
+        <input type="hidden" name="location" value="keep">
+        
+        <input type="submit" value="Explore!">
+    </form>
+    <hr>
+    
+    <form action="/gold" method="POST">
+        <label for="location">Thieves' Den (Gain/Lose 15-75 Gold)</label>
+        <input type="hidden" name="location" value="thieves_den">
+        
+        <input type="submit" value="Explore!">
+    </form>
+    <hr>
+    
+    <br>
+    <a href="/reset_all">Reset Game</a>
+    
+    <h3>Adventure</h3>
+    {% for activity in activities %}
+        {% if 'mugged' in activity %}
+        <p class="red">{{activity}}</p>
+        {% elif 'charity' in activity %}
+        <p class="blue">{{activity}}</p>
+        {% else %}
+        <p class="green">{{activity}}</p>
+        {% endif %}
+    {% endfor %}
+
+</body>
+</html>

@@ -49,8 +49,17 @@ class User:
         self.account.displayAccountInfo()
         return self
 
-harry = User("Harry Potter", "voldilocks@hogwarts.com")
+    def give_money(self, other_user, amount):
+        self.makeWithdrawal(amount)
+        other_user.makeDeposit(amount)
+        print(f"{self.name} gave {amount} to {other_user.name}")
+        return self
 
-harry.makeDeposit(100).makeWithdrawal(50).displayUserBalance()
-harry.account.yieldInterest().displayAccountInfo()
-harry.displayUserBalance()
+harry = User("Harry Potter", "voldilocks@hogwarts.com")
+ron = User("Ron Weasley", "ilovehermione@hogwarts.com" )
+
+# harry.makeDeposit(100).makeWithdrawal(50).displayUserBalance()
+# harry.account.yieldInterest().displayAccountInfo()
+# harry.displayUserBalance()
+
+harry.give_money(ron, 100)

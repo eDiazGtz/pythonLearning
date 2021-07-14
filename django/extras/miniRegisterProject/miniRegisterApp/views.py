@@ -6,7 +6,7 @@ import bcrypt
 
 # Create your views here.
 def landing(request):
-    regForm = RawRegistrationForm()
+    regForm = RegistrationForm()
     context = {
         "regForm":regForm
     }
@@ -15,17 +15,17 @@ def landing(request):
 
 def register(request):
     if(request.method == "POST"):
-        regForm = RawRegistrationForm(request.POST) #back-end re-validating in case front-end fails
-        errors = User.objects.createValidator(request.POST)
-        if(len(errors) > 0):
-            for key, value in errors.items():
-                messages.error(request, value)
-            return redirect('/')
+        regForm = RegistrationForm(request.POST) #back-end re-validating in case front-end fails
+        
         if regForm.is_valid(): #Uses django built-in validations
-            hashpw = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
-            newUser = User.objects.create(name=request.POST['name'],email=request.POST['email'],password=hashpw)
-            request.session['userId'] = newUser.id
+            user = regForm.save()
+            #log in
             return redirect('/dashboard')
+        else:
+            context = {
+                'reg_form':RegistrationForm(request.POST)
+            }
+            return render(request, "logReg.html", context)
     return redirect('/')
 
 

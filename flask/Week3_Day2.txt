@@ -1,0 +1,4 @@
+What to teach?
+    Routing cont
+    render
+    redirect

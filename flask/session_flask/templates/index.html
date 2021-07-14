@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Webbed Site</h1>
+
+    <p>Your last favorite color was: 
+        {% if 'fav_color' not in session %}
+            Psyche! You don't have a favorite color yet
+        {% else %}
+        {{session['fav_color']}} </p>
+        {% endif %}
+
+    <form action="/handle_form" method="POST">
+    
+        <label for="fav_color">Favorite Color</label>
+        <input type="text" name="fav_color">
+
+        <input type="submit" value="Favorite Color">
+    </form>
+
+    <a href="/redirecting_route">Click me to be redirected</a>
+
+</body>
+</html>

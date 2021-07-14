@@ -10,6 +10,9 @@ class ShowManager(models.Manager):
             errors["network"] = "Network must be at least 3 characters long."
         if len(postData['description']) < 10:
             errors["description"] = "Description must be at least 10 characters long."
+
+        #Release Date must be 13 years in the past or older
+        print(postData['release_date'])
         return errors
         
 
